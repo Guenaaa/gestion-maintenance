@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
@@ -6,22 +6,11 @@ app = Flask(__name__)
 def accueil():
     return "Le serveur fonctionne 🎉"
 
-@app.route("/signalement", methods=["GET", "POST"])
+@app.route("/signalement")
 def signalement():
-    if request.method == "POST":
-        zone = request.form.get("zone")
-        description = request.form.get("description")
-        print("Signalement reçu :", zone, description)
-        return "Merci, le signalement a été envoyé."
-
-    return """
-    <h2>Signalement d’anomalie</h2>
-    <form method="post">
-        <input name="zone" placeholder="Zone" required><br><br>
-        <textarea name="description" placeholder="Description" required></textarea><br><br>
-        <button type="submit">Envoyer</button>
-    </form>
-    """
+    return "Page signalement OK"
 
 if __name__ == "__main__":
-    app.run()
+    import os
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
